@@ -12,7 +12,7 @@ const instagram = {
 
   initialize: async () => {
     instagram.browser = await puppeteer.launch({
-      headless: true,
+      headless: false,
       args: ["--start-maximized"]
     });
 
@@ -48,16 +48,10 @@ const instagram = {
     await loginButton[0].click();
 
     await instagram.page.waitForNavigation({ waitUntil: "networkidle2" });
-    await instagram.page.waitFor('a > span[aria-label="Profile"]');
+    await instagram.page.waitFor('a > svg[aria-label="Profile"]');
     console.info("Logged in !")
 
-    // wait to click no to nofication
-    
     await instagram.page.waitFor(1000);
-    //let noButton = await instagram.page.$x('//button[contains(text(), "Not Now")]');
-    //let noButton = await instagram.page.$x('//div[class="mt3GC"] > button[class="aOOlW   HoLwm "]');
-    //await noButton[0].click();
-    
   },
 
   likeTagsProcess: async (tags = []) => {
@@ -82,16 +76,18 @@ const instagram = {
 
         if (isLikeble) {
           await instagram.page.click('span[aria-label="Like"]');
-          console.log(`i liked the picture ${instagram.page.url()}`)
+           var name = await instagram.page.$('a[class="FPmhX notranslate nJAzx"]');
+           var name = await instagram.page.evaluate(name => name.innerText, name);
 
-          if(data.SaveLikedPosts = "true"){
+           console.log(`I liked the picture ${instagram.page.url()} by ${name}`);
 
-            let pic = `./instegram_bot_files/liked_posts/instagram.png`;
-            await instagram.page.screenshot({path: pic});
-            console.log("i took a screenshot of the post of the last post!");
-          }
+           if(data.followUser = "true"){
+            await instagram.page.click('button[class="oW_lN sqdOP yWX7d    y3zKF     "]');
+            console.log(`i followed ${name}`);
+           }
+
         }else{
-          console.log("post aready liked!")
+          console.log("post aready liked!");
         }
         await instagram.page.waitFor(2000);
 
