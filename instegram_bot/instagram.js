@@ -12,7 +12,7 @@ const instagram = {
 
   initialize: async () => {
     instagram.browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
       args: ["--start-maximized"]
     });
 
@@ -81,9 +81,21 @@ const instagram = {
 
            console.log(`I liked the picture ${instagram.page.url()} by ${name}`);
 
-           if(data.followUser = "true"){
+           if(data.followUser === true){
+            await instagram.page.waitFor(5000);
             await instagram.page.click('button[class="oW_lN sqdOP yWX7d    y3zKF     "]');
             console.log(`i followed ${name}`);
+           }
+
+           if(data.MoreInfo === true){
+           var bio = await instagram.page.$('div[class="C4VMK"] > span');
+           var bio = await instagram.page.evaluate(bio => bio.innerText, bio);
+
+           var time = await instagram.page.$('time[class="FH9sR Nzb55"]');
+           var time = await instagram.page.evaluate(time => time.innerText, time);
+
+           console.log(`Bio: \n ${bio} \n time posted : ${time}`);
+           console.log('\n--------------------------------------------------------------------------------------------\n')
            }
 
         }else{
@@ -97,7 +109,6 @@ const instagram = {
           '//button[contains(text(), "Close")]'
         );
         await closeButtonModle[0].click();
-
         await instagram.page.waitFor(2000);
       }
       await instagram.page.waitFor(15000);
