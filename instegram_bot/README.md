@@ -3,11 +3,11 @@
 see more in the ./info.json
 
 Features:
-
+```
 > like post by selected tags
 > follow User that his post was liked
 > see info about the liked post (time and bio)
-
+```
 
 acc used for the testing https://www.instagram.com/learningbot/
 
