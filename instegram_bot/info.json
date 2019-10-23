@@ -1,15 +1,17 @@
 {
-    "username":"",
-    "password":"",
+    "username":"learningbot",
+    "password":"zxc123+-",
     "tags":["draw","art","memes"],
     "postsToLike":20, 
-    "followUser":"true",
-    
+    "followUser":false,
+    "MoreInfo":true,
+
     "comment":[
         "username - place here your instegram username",
         "password - place here your instegram password",
         "tags - place here all the tags you want the bot to like in",
         "postsToLike - place here the amount of likes per tag max is 20 for now more then that will bring into an error",
-        "followUser - type true / false if you want to follow the user the bot liked his pic"
+        "followUser - type true / false if you want to follow the user the bot liked his pic",
+        "MoreInfo - type true / false if you want more info about the post the bot liked"
     ]
 }
